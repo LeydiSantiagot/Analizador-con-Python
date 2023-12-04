@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        #output {
+            white-space: pre-wrap;
+        }
+        .error {
+            color: black; /* Cambiado a azul */
+            font-weight: bold;
+            text-decoration: underline red; /* Agregado el color de subrayado en rojo */
+        }
+        .black {
+            color: black;
+        }
+        #btnEnviar {
+            margin-top: 10px; /* Ajusta este valor según sea necesario */
+        }
+    </style>
+</head>
+<body>
+    <!--Navegacion -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+          <a class="nav-link" href="index.html">
+            <h4>Automatosos</h4>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active" >
+                <a class="nav-link"  href="/Semantico.html">Analizador Semantico</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Sintactico.html" id="analizaSin">Analizador Sintactico</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="lexico.html">Analizador Lexico</a>
+              </li>
+            </ul>
+          </div>
+          </div>
+    </nav>
+
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label for="input">Entrada:</label>
+        </div>
+        <div class="col-auto">
+            <textarea id="input" rows="2" cols="100"></textarea>
+        </div>
+        <div class="col-auto">
+            <button id="btnEnviar" class="btn btn-primary" onclick="analizarExpresion()">Analizar</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <label for="result">Salida:</label>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function analizarExpresion() {
+            const isValid = analizar(); // Llama a la función de análisis léxico y obtiene el resultado
+
+            // Muestra una ventana emergente con el resultado
+            if (isValid) {
+                window.alert('La expresión es válida.');
+            } else {
+                window.alert('Expresión no válida, verifique de nuevo.');
+            }
+        }
+
+        function analizar() {
+            const inputTextArea = document.getElementById('input');
+            const resultParagraph = document.getElementById('result');
+            const inputText = inputTextArea.value;
+
+            let resultHTML = '';
+            let isValid = true; // Se asume que la expresión es válida inicialmente
+
+            for (let i = 0; i < inputText.length; i++) {
+                const currentChar = inputText[i];
+                const nextChar = inputText[i + 1];
+
+                const specialCases = ['--', '++', '*', '//', '- -', '+ +', ' *', '/ /'];
+
+                const currentPair = currentChar + (nextChar ? nextChar : '');
+
+                if (specialCases.includes(currentPair)) {
+                    resultHTML += '<span class="error">' + currentPair + '</span>';
+                    isValid = false; // La expresión no es válida
+                    i++; // Skip the next character
+                } else if (/[0-9+\-*/]/.test(currentChar)) {
+                    resultHTML += '<span class="black">' + currentChar + '</span>';
+                } else {
+                    resultHTML += '<span class="error">' + currentChar + '</span>';
+                    isValid = false; // La expresión no es válida
+                }
+            }
+
+            resultParagraph.innerHTML = resultHTML;
+
+            // Retorna un valor booleano indicando si la expresión es válida o no
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>

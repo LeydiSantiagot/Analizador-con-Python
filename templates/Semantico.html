@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Aqui va bootstrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Customizando CSS-->
+  <link rel="stylesheet" href="index.css">
+  <title>Check sintax</title>
+  </head>
+  <body>
+    <!--Navegacion -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+          <a class="nav-link" href="index.html">
+            <h4>Automatosos</h4>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active" >
+                <a class="nav-link"  href="/Semantico.html">Analizador Semantico</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Sintactico.html" id="analizaSin">Analizador Sintactico</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="lexico.html">Analizador Lexico</a>
+              </li>
+            </ul>
+          </div>
+          </div>
+    </nav>
+    <div class="container">
+          <!-- Header -->
+    <header class="main-header" style="margin: 20px;">
+      <form class="row g-3" method="POST" action="#">
+        <div class="col-auto">
+          <label for="staticEmail2" class="visually-hidden">Email</label>
+          <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Lenguaje">
+        </div>
+        <div class="col-auto">
+          <label for="inputPassword2" class="visually-hidden">Password</label>
+          <input type="text" class="form-control" name="cadena" placeholder="Cadena" >
+        </div>
+        <div class="col-auto">
+          <span class="form-text">
+            Debe de contener el siguiente formato [","]
+          </span>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3" id="myButton">Analizar</button>
+        </div>
+      </form>
+        <div class="container">
+                {% if feeling=='positivo' %}
+                    <div class="alert alert-primary" role="alert">
+                      Pensamiento positivo
+                    </div>
+                {% elif feeling=='negativo' %}
+                    <div class="alert alert-danger" role="alert">
+                      Pensamiento negativo
+                    </div>
+                {% else %}
+                    <div class="alert alert-light" role="alert">
+                     Pensamiento neutro
+                    </div>
+                {% endif %}
+        </div>
+
+    </header>
+    </div>
+    <!--Aqui tmb-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+      //codigo boton
+      var myButton = document.getElementById("myButton")
+      function enviarMsj(){
+          alert("Cadena enviada");
+      }
+      myButton.addEventListener("click", enviarMsj)
+
+    </script>
+    <script src="main.py"></script>
+  </body>
+</html>
